@@ -411,6 +411,57 @@ main{display:block}
 @media(hover:hover){.mc:hover .fi{transform:rotateY(180deg)}}
 .mc.flip .fi,.mc.auto .fi{transform:rotateY(180deg)}
 
+/* Superman bot: always flying */
+.wing{display:none}
+.av svg{transform-origin:50% 60%;animation:sf 2s ease-in-out infinite alternate}
+.talk svg{animation:sf .9s ease-in-out infinite alternate}
+@keyframes sf{from{transform:translateY(-4px) rotate(-6deg)}to{transform:translateY(4px) rotate(6deg)}}
+.cape{transform-box:fill-box;transform-origin:50% 0;animation:cp .45s ease-in-out infinite alternate}
+@keyframes cp{from{transform:skewX(-7deg) scaleY(1)}to{transform:skewX(7deg) scaleY(1.08)}}
+.legL .li,.legR .li{animation:lg 1.6s ease-in-out infinite alternate}
+.legR .li{animation-direction:alternate-reverse}
+.trl{background:#fff;border-color:#1E4FD8}
+
+
+/* ===== MODULES: pinned scroll stack ===== */
+#modules{padding-bottom:0}
+.mscroll{position:relative;height:760vh;margin-top:30px}
+.mstick{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+#mghost{position:absolute;left:-2vw;top:50%;margin-top:-.5em;font:800 30vw/1 var(--d);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px #1B2542;pointer-events:none;user-select:none;white-space:nowrap}
+.mgrid{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;padding-bottom:70px}
+.minfo .cnt{font:600 13px var(--b);letter-spacing:.14em;text-transform:uppercase;color:var(--m2)}
+.minfo .cnt b{color:var(--acc)}
+.mnum{display:block;font:800 clamp(80px,12vw,180px)/.85 var(--d);letter-spacing:-.06em;color:var(--acc);margin:10px 0 6px}
+.mname{font:800 clamp(36px,5vw,68px)/1 var(--d);letter-spacing:-.045em}
+.mdesc{color:var(--m2);font-size:18px;max-width:34ch;margin:16px 0 18px;min-height:3.2em}
+.minfo.sw .mnum,.minfo.sw .mname,.minfo.sw .mdesc,.minfo.sw #mtags{animation:mswap .7s var(--e)}
+@keyframes mswap{from{opacity:0;transform:translateY(34px)}}
+.mpills{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.mpill{font:600 13px var(--b);padding:7px 14px;border-radius:99px;border:1px solid var(--line2);color:var(--m2);transition:.3s}
+.mpill.on{background:var(--acc);border-color:var(--acc);color:var(--ink)}
+.mpill:hover{border-color:var(--acc)}
+.mprog{height:3px;background:var(--line2);margin-top:22px;border-radius:3px;overflow:hidden}
+#mfill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));transform:scaleX(0);transform-origin:left}
+.mstack{position:relative;height:min(62vh,480px);perspective:1200px}
+.mcard{position:absolute;inset:0;border:1px solid var(--line2);border-radius:28px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;background:radial-gradient(420px circle at 80% 0%,rgba(255,90,31,.22),transparent 62%),linear-gradient(160deg,#121A30,#0B1226);box-shadow:0 40px 80px -30px rgba(0,0,0,.8);will-change:transform,opacity;transform-origin:50% 100%;transition:border-color .4s}
+.mcard.act{border-color:rgba(255,90,31,.7)}
+.mcard h3{font:800 clamp(30px,3.6vw,44px)/1 var(--d);letter-spacing:-.04em}
+.mcard .gbtn{border-color:#fff;color:#fff}
+.mcard .gbtn:hover{border-color:var(--acc);color:var(--ink)}
+.mstick .band{position:absolute;left:0;right:0;bottom:0;margin:0;border-bottom:0;z-index:1}
+.mstick .band div{font-size:clamp(28px,4vw,56px)}
+.dark .band.o div{-webkit-text-stroke-color:#26325A}
+.dark .band{border-color:var(--line2)}
+@media(max-width:900px){.mgrid{grid-template-columns:1fr;gap:20px;padding-top:70px}.mnum{font-size:64px}.mdesc{min-height:0;font-size:16px}.mstack{height:min(44vh,330px)}.mpills{display:none}#mtags{display:none}}
+
+/* bot actions */
+#btag{position:absolute;right:calc(100% + 4px);top:34px;white-space:nowrap;padding:6px 12px;border-radius:99px;background:var(--ink);color:#fff;font:600 12.5px var(--b);opacity:0;transform:translateX(10px);transition:.35s;pointer-events:none}
+#bot.tagon #btag{opacity:1;transform:none}
+#bot.stunt .av{animation:loop .95s cubic-bezier(.6,0,.3,1)}
+@keyframes loop{to{transform:rotate(360deg)}}
+.spk{position:absolute;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:2px;pointer-events:none;animation:spk .9s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes spk{to{transform:translate(var(--dx),var(--dy)) rotate(280deg) scale(.2);opacity:0}}
+
 @media(prefers-reduced-motion:reduce){
  *{animation:none!important;transition:none!important}
  .rv{opacity:1;transform:none}.hd .ln>span{transform:none}.clip{clip-path:none}.scrub span{opacity:1}
@@ -482,11 +533,28 @@ main{display:block}
 </section>
 
 <!-- MODULES -->
-<section class="sec dark" id="modules" data-say="Seven functional areas: Production, Inserts, Painting, Assembly, Dispatch, Store and Tender. Hover or tap any card to flip it.">
+<section class="sec dark" id="modules" data-say="Seven functional areas. Scroll slowly, and I'll fly to each module as it comes up.">
   <div class="wrap">
     <span class="eb"><i></i>02 · Modules</span>
     <h2 class="hd" data-t="One ERP.|Seven areas."></h2>
-    <div class="track" id="track"></div>
+  </div>
+  <div class="mscroll" id="mscroll">
+    <div class="mstick">
+      <div id="mghost" aria-hidden="true">ERP</div>
+      <div class="wrap mgrid">
+        <div class="minfo" id="minfo">
+          <div class="cnt">Module <b id="mcount">1</b> / 7</div>
+          <span class="mnum" id="mnum">01</span>
+          <h3 class="mname" id="mname"></h3>
+          <p class="mdesc" id="mdesc"></p>
+          <div class="tg" id="mtags"></div>
+          <div class="mpills" id="mpills"></div>
+          <div class="mprog"><div id="mfill"></div></div>
+        </div>
+        <div class="mstack" id="mstack"></div>
+      </div>
+      <div class="band o" aria-hidden="true"><div id="b3"></div></div>
+    </div>
   </div>
 </section>
 
@@ -576,29 +644,28 @@ main{display:block}
 </section>
 </main>
 
-<!-- GUIDE BOT -->
+<!-- GUIDE BOT (Superman) -->
 <aside id="guide" aria-label="Sen-Bot guide">
   <div id="bot">
-    <i class="wing l"></i><i class="wing r"></i>
+    <i class="wing l"></i><i class="wing r"></i><span id="btag"></span>
     <button class="av" id="av" aria-label="Open or minimize Sen-Bot">
       <svg viewBox="0 0 80 100" aria-hidden="true">
         <defs><clipPath id="bc"><rect x="24" y="44" width="32" height="28" rx="12"/></clipPath></defs>
-        <path d="M40 72 L36 80 L44 80 Z" fill="#0B1020"/>
-        <g class="legL" transform="translate(32 72)"><g class="li"><path d="M0 0 L0 14" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 14" stroke="#FFC400" stroke-width="4" stroke-linecap="round"/><rect x="-6" y="13" width="12" height="6" rx="3" fill="#0B1020"/></g></g>
-        <g class="legR" transform="translate(48 72)"><g class="li"><path d="M0 0 L0 14" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 14" stroke="#FFC400" stroke-width="4" stroke-linecap="round"/><rect x="-6" y="13" width="12" height="6" rx="3" fill="#0B1020"/></g></g>
-        <rect x="24" y="44" width="32" height="28" rx="12" fill="#FFC400"/>
-        <g clip-path="url(#bc)" fill="#0B1020"><rect x="20" y="55" width="40" height="4"/><rect x="20" y="64" width="40" height="4"/></g>
+        <path class="cape" d="M24 46 Q4 72 12 98 L40 86 L68 98 Q76 72 56 46 Z" fill="#D7263D" stroke="#0B1020" stroke-width="2.5" stroke-linejoin="round"/>
+        <g class="legL" transform="translate(33 72)"><g class="li"><path d="M0 0 L0 12" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 12" stroke="#1E4FD8" stroke-width="4" stroke-linecap="round"/><rect x="-6" y="11" width="12" height="8" rx="3" fill="#D7263D" stroke="#0B1020" stroke-width="1.5"/></g></g>
+        <g class="legR" transform="translate(47 72)"><g class="li"><path d="M0 0 L0 12" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 12" stroke="#1E4FD8" stroke-width="4" stroke-linecap="round"/><rect x="-6" y="11" width="12" height="8" rx="3" fill="#D7263D" stroke="#0B1020" stroke-width="1.5"/></g></g>
+        <rect x="24" y="44" width="32" height="28" rx="12" fill="#1E4FD8"/>
+        <g clip-path="url(#bc)"><rect x="20" y="63" width="40" height="10" fill="#D7263D"/><rect x="20" y="61" width="40" height="3" fill="#FFC400"/></g>
         <rect x="24" y="44" width="32" height="28" rx="12" fill="none" stroke="#0B1020" stroke-width="2.5"/>
-        <circle cx="40" cy="50" r="2.6" fill="#5EE1FF" stroke="#0B1020" stroke-width="1.2"/>
-        <g class="armL" transform="translate(24 52)"><g class="ai"><path d="M0 0 L0 11" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 11" stroke="#FFC400" stroke-width="4" stroke-linecap="round"/><g transform="translate(0 11)"><g class="fa"><path d="M0 0 L0 10" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 10" stroke="#FFC400" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="12" r="4.6" fill="#0B1020"/></g></g></g></g>
-        <g class="armR" transform="translate(56 52)"><g class="ai"><path d="M0 0 L0 11" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 11" stroke="#FFC400" stroke-width="4" stroke-linecap="round"/><g transform="translate(0 11)"><g class="fa"><path d="M0 0 L0 10" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 10" stroke="#FFC400" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="12" r="4.6" fill="#0B1020"/></g></g></g></g>
-        <line x1="27" y1="10" x2="20" y2="2" stroke="#0B1020" stroke-width="3" stroke-linecap="round"/><circle class="ant" cx="19" cy="2" r="3.2" fill="#FF5A1F" stroke="#0B1020" stroke-width="1.5"/>
-        <line x1="53" y1="10" x2="60" y2="2" stroke="#0B1020" stroke-width="3" stroke-linecap="round"/><circle class="ant" cx="61" cy="2" r="3.2" fill="#FF5A1F" stroke="#0B1020" stroke-width="1.5"/>
-        <rect x="15" y="9" width="50" height="34" rx="16" fill="#FFC400" stroke="#0B1020" stroke-width="2.5"/>
-        <path d="M30 9.5 L40 17 L50 9.5" fill="none" stroke="#0B1020" stroke-width="2.5" stroke-linejoin="round"/>
-        <rect x="20" y="19" width="40" height="17" rx="8" fill="#0B1020"/>
-        <g id="eyes"><g class="bl"><rect x="26" y="22" width="9" height="11" rx="4" fill="#5EE1FF"/><rect x="45" y="22" width="9" height="11" rx="4" fill="#5EE1FF"/><rect x="28" y="24" width="3" height="3" rx="1.5" fill="#fff"/><rect x="47" y="24" width="3" height="3" rx="1.5" fill="#fff"/></g></g>
-        <rect id="mouth" x="35" y="38.5" width="10" height="2" rx="1" fill="#0B1020"/>
+        <path d="M40 46.5 L49 46.5 L47.5 56 L40 61 L32.5 56 L31 46.5 Z" fill="#FFC400" stroke="#0B1020" stroke-width="1.3" stroke-linejoin="round"/>
+        <text x="40" y="56" text-anchor="middle" font-size="9.5" font-weight="800" font-family="Schibsted Grotesk,sans-serif" fill="#D7263D">S</text>
+        <g class="armL" transform="translate(24 52)"><g class="ai"><path d="M0 0 L0 11" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 11" stroke="#1E4FD8" stroke-width="4" stroke-linecap="round"/><g transform="translate(0 11)"><g class="fa"><path d="M0 0 L0 10" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 10" stroke="#1E4FD8" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="12" r="4.6" fill="#F5C9A0" stroke="#0B1020" stroke-width="1.5"/></g></g></g></g>
+        <g class="armR" transform="translate(56 52)"><g class="ai"><path d="M0 0 L0 11" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 11" stroke="#1E4FD8" stroke-width="4" stroke-linecap="round"/><g transform="translate(0 11)"><g class="fa"><path d="M0 0 L0 10" stroke="#0B1020" stroke-width="8" stroke-linecap="round"/><path d="M0 0 L0 10" stroke="#1E4FD8" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="12" r="4.6" fill="#F5C9A0" stroke="#0B1020" stroke-width="1.5"/></g></g></g></g>
+        <rect x="15" y="9" width="50" height="34" rx="16" fill="#F5C9A0" stroke="#0B1020" stroke-width="2.5"/>
+        <path d="M15.5 24 Q14 8 40 8 Q66 8 64.5 24 Q58 15 48 16.5 Q40 14 32 16.5 Q22 15 15.5 24 Z" fill="#0B1020"/>
+        <path d="M38 14 Q43 11 46 15 Q43 18 40 16" fill="none" stroke="#0B1020" stroke-width="2.2" stroke-linecap="round"/>
+        <g id="eyes"><g class="bl"><rect x="25" y="23" width="10" height="9" rx="4" fill="#fff" stroke="#0B1020" stroke-width="1.2"/><rect x="45" y="23" width="10" height="9" rx="4" fill="#fff" stroke="#0B1020" stroke-width="1.2"/><circle cx="30" cy="27.5" r="2.6" fill="#1E4FD8"/><circle cx="50" cy="27.5" r="2.6" fill="#1E4FD8"/></g></g>
+        <rect id="mouth" x="35" y="37" width="10" height="2" rx="1" fill="#B5483A"/>
       </svg>
     </button>
   </div>
@@ -611,7 +678,7 @@ main{display:block}
       </div>
       <div class="cv">
         <div id="msgs"></div><div id="chips"></div>
-        <form id="f"><input id="q" placeholder="Ask about Senthamil…" autocomplete="off" aria-label="Your question"><button>Send</button></form>
+        <form id="f"><input id="q" placeholder="Ask me anything about Senthamil…" autocomplete="off" aria-label="Your question"><button>Send</button></form>
         <button id="gback" type="button">Back to guide</button>
       </div>
     </div>
@@ -647,18 +714,43 @@ const groups=[
 ['Design',['ERP Workflow Design','Functional Prototyping','AI-Assisted Prototype Design']],
 ['Delivery',['Developer Coordination','Change Request Management','Process Improvement']],
 ['Quality',['Functional Testing','UAT','Bug Identification & Reporting']]];
+const MAIL='senthamil0713@gmail.com',PH='+91 93440 38554',LI='linkedin.com/in/senthamil-selvan-s-31531230b';
+const CT='You can reach him directly: email '+MAIL+', phone '+PH+', or LinkedIn '+LI+'.';
+const SUM="Senthamil Selvan S. is an ERP Functional Consultant at Meena Fibre Industry Pvt Ltd (since March 2026). He turns shop-floor processes into clear ERP workflows, prototypes screens early with AI tools like Google AI Studio, runs UAT and follows change requests across 7 ERP areas. He holds a B.Tech in EEE and is based in Thatchur.";
+const DEF=['Tell me about him','Experience','ERP modules','Skills','Why hire him?','Contact'];
+const modAns=t=>{const h=mods.filter(m=>t.includes(m[0].toLowerCase()));return h.length?h.map(m=>m[0]+': '+m[1]).join(' '):"He supports 7 ERP areas: Production, Inserts, Painting, Assembly, Dispatch, Store and Tender, from requirements through UAT."};
+const defAns=t=>t.includes('uat')?"UAT (User Acceptance Testing) is the final check where real users confirm a feature works for their daily work before it goes live. Senthamil runs it and logs gaps for the developers.":t.includes('change request')?"A change request is a formal request to modify a feature after it has been specified or built. Senthamil manages them and validates the result against real operations.":t.includes('prototype')?"A prototype is an early draft of a screen or workflow so users can react before development. He builds them with AI tools like Google AI Studio.":t.includes('functional consultant')?"An ERP functional consultant translates business processes into ERP workflows and specs, tests them and bridges users and developers. That is exactly Senthamil's role.":"ERP (Enterprise Resource Planning) is one system that connects a company's departments, such as production, store and dispatch, so data and workflows stay in sync. Senthamil designs the functional side of it.";
 const KB=[
-[/\b(hi|hello|hey|hai|hola|vanakkam)\b/,"Hello! Ask me about Senthamil's experience, ERP modules, delivery process, skills, education or contact details."],
-[/why|stand out|unique|fit\b/,"He bridges operations teams and developers: he gathers requirements, prototypes early with AI tools, tests with UAT and follows every change request until it works in real operations.","#about"],
-[/experience|work|job|career|company|meena|role|genius|vedantu/,"He's an ERP Functional Consultant at Meena Fibre Industry Pvt Ltd since March 2026. Before that he was an Admin Executive (contract) at Genius HR Tech, May to Sep 2024.","#work"],
-[/module|area|erp|production|insert|paint|assembly|dispatch|store|tender/,"He supports 7 ERP areas: Production, Inserts, Painting, Assembly, Dispatch, Store and Tender.","#modules"],
-[/test|uat|bug|quality/,"He runs functional testing and UAT, then reports bugs, missing fields, validation gaps and process mismatches to the developers.","#process"],
-[/\bai\b|prototype|studio|design/,"He builds functional prototypes and UI concepts with AI-assisted tools like Google AI Studio before development starts.","#process"],
-[/process|deliver|step|how/,"Six stages: Gather, Design, Prototype, Coordinate, Test and Improve. Scroll the process section to see each one open.","#process"],
-[/skill|strength|good at|know/,"Requirement gathering, process analysis, ERP workflow design, prototyping, developer coordination, testing and UAT, change requests and process improvement.","#skills"],
-[/educat|study|degree|college|tech|diploma|school/,"B.Tech in EEE from Dr. M.G.R. Educational and Research Institute (2021-24) and a Diploma in EEE from T.J.S. Polytechnic College (2018-21).","#edu"],
-[/contact|email|mail|phone|call|linkedin|hire|reach|number/,"Email: senthamil0713@gmail.com. Phone: +91 93440 38554. LinkedIn: linkedin.com/in/senthamil-selvan-s-31531230b","#contact"],
-[/where|location|address|live/,"He is based in Thatchur, PIN 601204.","#contact"]];
+ {p:[/what is (an? |the )?(erp|uat|change request|prototype|functional consultant|bug|requirement)/,/\b(erp|uat) (mean|stand)/,/define (erp|uat)/],a:defAns,fu:['Tell me about him','Process','Skills']},
+ {p:[/why (hire|should|choose|select|him)/,/stand out|unique|best candidate|add value|value add|bring to|contribut|differentiat|worth|fit for|good fit|suitable/],a:"He bridges operations teams and developers: he understands what users need and what developers can build, shows prototypes before building, and closes the loop with UAT and change requests until the result matches real operations. He already covers 7 ERP areas in his current role.",s:'#about',fu:['Skills','Experience','Contact']},
+ {p:[/current(ly)?\b|present|designation|job title|position|\brole\b|occupation|working (as|at)|employer|meena|fibre|fiber/],a:"He is currently an ERP Functional Consultant at Meena Fibre Industry Private Limited, a role he started in March 2026.",s:'#work',fu:['Responsibilities','Experience','ERP modules']},
+ {p:[/experience|how many years|how long|career|previous|past job|earlier|genius|vedantu|admin|history|worked|employment|fresher|senior|junior|work history/],a:"Mar 2026 to present: ERP Functional Consultant at Meena Fibre Industry, covering 7 ERP areas. May to Sep 2024: Admin Executive (contract) at Genius HR Tech, client Vedantu Innovation Pvt Ltd, coordinating requirements between stakeholders and internal teams and keeping records accurate.",s:'#work',fu:['Responsibilities','Education','Availability']},
+ {p:[/responsib|duties|day to day|daily|job description|what does he do|what do you do|tasks|work on|handle|scope|roles and/],a:"Day to day he gathers requirements from the teams who use the ERP, turns shop-floor processes into workflows, fields and validations for developers, prototypes screens with AI tools such as Google AI Studio, runs functional testing and UAT (logging bugs and gaps), manages change requests, and suggests practical workflow improvements across 7 ERP areas.",s:'#work',fu:['Process','Testing','ERP modules']},
+ {p:[/production|inserts?|painting|assembly|dispatch|\bstore\b|tender/,/\bmodules?\b|functional areas?|erp areas?|\berp\b/],a:modAns,s:'#modules',fu:['Process','Testing','Skills']},
+ {p:[/\bprocess\b|approach|method|stages|lifecycle|how does he (work|deliver)|steps|how do you work|delivery|sdlc/],a:"He delivers every module in six stages: Gather requirements, Design workflows, Prototype, Coordinate with developers, Test with UAT, and Improve through change requests.",s:'#process',fu:['Testing','Prototyping','Change requests']},
+ {p:[/requirement|gather|\bbrd\b|\bfrd\b|analysis|analy[sz]e|elicit|specification/],a:"He collects and analyzes requirements across all seven functional areas, studies the existing business process, and documents it so developers can build without guesswork.",s:'#process',fu:['Process','Prototyping','Skills']},
+ {p:[/prototype|\bai\b|google ai studio|studio|\btools?\b|software|tech stack|\bui\b|screens?\b|mockup|wireframe|artificial/],a:"He builds functional prototypes and UI concepts with AI-assisted tools such as Google AI Studio before development starts, so users can react to something real early.",s:'#process',fu:['Process','Testing','Skills']},
+ {p:[/\btest|\buat\b|\bqa\b|\bbugs?\b|quality|validat|defect|acceptance/],a:"He runs functional testing and UAT, then reports bugs, missing fields, validation gaps and process mismatches to the development team, and confirms each feature against real operations.",s:'#process',fu:['Change requests','Process','Skills']},
+ {p:[/change request|\bcrs?\b|change management|enhancement|adoption/],a:"He manages change requests end to end and validates each finished change against real operations before users adopt it.",s:'#process',fu:['Testing','Process','Experience']},
+ {p:[/\bpython\b|\bjava\b|\bsql\b|\breact\b|\bsap\b|\bodoo\b|\btally\b|\bexcel\b|power ?bi|\bnode\b|\bangular\b|\bphp\b|\baws\b|\bazure\b|tableau|\bcoding\b|programming/],a:"Those specific tools aren't listed on his page, so I can't confirm them. What is listed: ERP functional work, AI-assisted prototyping with Google AI Studio, testing and UAT. For anything else, "+CT.charAt(0).toLowerCase()+CT.slice(1),s:'#skills',fu:['Skills','Prototyping','Contact']},
+ {p:[/skill|strength|good at|expert|competenc|\bknow\b|capabilit|abilit|talent|proficien/],a:"Requirement gathering, business process analysis, ERP workflow design, functional and AI-assisted prototyping, developer coordination, change request management, process improvement, functional testing, UAT and bug reporting.",s:'#skills',fu:['Why hire him?','Experience','Education']},
+ {p:[/developer|\bteam\b|collab|communicat|stakeholder|coordinat|bridge|cross.?functional|soft skill|teamwork/],a:"Working with people is the core of the job: he sits between the teams who run the shop floor and the developers who build the ERP, clarifies requirements during development and reviews features against business needs.",s:'#process',fu:['Process','Why hire him?','Skills']},
+ {p:[/educat|degree|b\.?tech|diploma|college|universit|qualif|graduat|studied|\bstudy\b|school|academic|\beee\b|electrical|\bmgr\b|polytechnic|\btjs\b/],a:"B.Tech in Electrical and Electronics Engineering from Dr. M.G.R. Educational and Research Institute (2021 to 2024), and a Diploma in Electrical and Electronics Engineering from T.J.S. Polytechnic College (2018 to 2021).",s:'#edu',fu:['Experience','Skills','Contact']},
+ {p:[/relocat|remote|on-?site|hybrid|where (is|does|do)|location|located|address|\bcity\b|based|\blive\b|reside|thatchur|pin ?code/],a:"He is based in Thatchur, PIN 601204. His page doesn't mention relocation or remote preferences, so for that please ask him directly. "+CT,s:'#contact',fu:['Availability','Contact','Experience']},
+ {p:[/availab|notice|joining|\bjoin\b|start date|switch|looking for|open to|opportunit|immediate|relieving/],a:"I don't have his notice period or joining date, and I won't guess. He is currently working at Meena Fibre Industry. For availability and interview timing, "+CT,s:'#contact',fu:['Contact','Experience','Why hire him?']},
+ {p:[/salary|\bctc\b|\bpay\b|package|compensation|expected|\blpa\b|remuneration|stipend|negotiat/],a:"Salary expectations aren't something I can share; that's best discussed with Senthamil directly. "+CT,s:'#contact',fu:['Contact','Availability','Why hire him?']},
+ {p:[/language|speak|english|hindi|fluent/],a:"The page doesn't list spoken languages, so I can't confirm. Please ask him directly. "+CT,fu:['Contact','Skills','Education']},
+ {p:[/certif|course|training|licen[sc]e|award|recogni/],a:"No certifications are listed on this page, so I can't claim any. What is listed: a B.Tech and a Diploma in EEE plus hands-on ERP work. For anything else, ask him directly. "+CT,s:'#edu',fu:['Education','Skills','Contact']},
+ {p:[/project|example|case study|achiev|accomplish|impact|result|success/],a:"Hands-on, he has worked across 7 ERP areas at Meena Fibre Industry, from requirements through UAT. The site also shows an illustrative example of how he breaks a Dispatch request into steps: request, validate, approve, dispatch, close. For specific project details, "+CT,s:'#flow',fu:['ERP modules','Process','Contact']},
+ {p:[/weakness|areas? (to|for) improve|challenge|limitation|drawback|negative|mistake/],a:"That one is best answered by Senthamil himself in a conversation. What the page shows is how he handles gaps in his ERP work: he tests with real users, logs gaps, and follows each change request to closure. "+CT,fu:['Why hire him?','Contact','Skills']},
+ {p:[/\bage\b|how old|married|marital|family|father|mother|birth|\bdob\b|gender|hobby|hobbies|interests?\b|religion/],a:"I only share professional details from this page. For anything personal, please ask Senthamil directly. "+CT,fu:['Tell me about him','Contact','Experience']},
+ {p:[/industry|manufactur|domain|sector|company (does|is)|what company/],a:"He works at Meena Fibre Industry Private Limited. The seven areas he covers (Production, Inserts, Painting, Assembly, Dispatch, Store, Tender) reflect a manufacturing environment.",s:'#work',fu:['ERP modules','Experience','Contact']},
+ {p:[/who are you|sen-?bot|your name|are you (a |an )?(bot|ai|human|real)|who (built|made|created)|this (site|page|portfolio)|website/],a:"I'm Sen-Bot, the guide on Senthamil's portfolio. I only share what's on this page, and for anything else I'll point you to him directly.",fu:DEF},
+ {p:[/contact|e-?mail|phone|\bcall\b|number|linkedin|reach|connect|whatsapp|mobile|get in touch|talk to|interview|schedule|\bmeet\b|\bhire\b|hiring|recruit/],a:CT,s:'#contact',fu:['Availability','Why hire him?','Experience']},
+ {p:[/tell me about|about (him|senthamil|yourself|you)\b|who is|introduc|profile|summary|overview|background|describe him|walk me through|who are you looking/],a:SUM,s:'#about',fu:['Experience','Skills','Why hire him?']},
+ {p:[/thank|thx|awesome|great|good job|nice|\bbye\b|goodbye|see you|appreciate/],a:"You're welcome! If you'd like to talk to Senthamil, "+CT.charAt(0).toLowerCase()+CT.slice(1),fu:DEF},
+ {p:[/\b(hi|hello|hey|hai|hola|vanakkam)\b|good (morning|afternoon|evening)/],a:"Hello! I can answer anything about Senthamil: experience, ERP modules, skills, education, availability, contact and more.",fu:DEF}
+];
 
 /* ================= BUILD ================= */
 $$('.hd').forEach(h=>{const t=h.dataset.t;h.setAttribute('aria-label',t.replace('|',' '));
@@ -666,25 +758,12 @@ $$('.hd').forEach(h=>{const t=h.dataset.t;h.setAttribute('aria-label',t.replace(
 const mk=a=>{const h=a.map(x=>`<span>${x}</span>`).join('');return h+h+h+h};
 $('#b1').innerHTML=mk(['Requirements','Workflows','Prototypes','Testing','UAT']);
 $('#b2').innerHTML=mk(['Production','Inserts','Painting','Assembly','Dispatch','Store','Tender']);
-$('#track').innerHTML=mods.map((m,i)=>{const n=String(i+1).padStart(2,'0'),rows=['Fields','Validation','Status'].map((l,k)=>`<div class="sr"><span>${l}</span><em><b style="--w:${[78,56,92][(i+k)%3]}%;--d:${k*.4}s"></b></em></div>`).join('');
- return `<article class="mc rv" style="--dl:${i*.07}s"><div class="fi">
- <div class="ff"><div class="mt2"><span class="nb">${n}</span><span class="lb">ERP module</span></div><h3>${m[0]}</h3>
+$('#b3').innerHTML=mk(['Scroll','Explore','Production','Inserts','Painting','Assembly','Dispatch','Store','Tender']);
+$('#mstack').innerHTML=mods.map((m,i)=>{const n=String(i+1).padStart(2,'0'),rows=['Fields','Validation','Status'].map((l,k)=>`<div class="sr"><span>${l}</span><em><b style="--w:${[78,56,92][(i+k)%3]}%;--d:${k*.4}s"></b></em></div>`).join('');
+ return `<article class="mcard"><div class="mt2"><span class="nb">${n}</span><span class="lb">ERP module</span></div><h3>${m[0]}</h3>
   <div class="scr"><div class="sh"><i></i><i></i><i></i><span>${m[0]} · prototype</span></div>${rows}</div>
-  <div class="hn"><span class="rot">↻</span>Hover or tap to flip</div></div>
- <div class="fb"><div class="mt2"><span class="nb">${n}</span><span class="lb">What I handle</span></div><h3>${m[0]}</h3>
-  <p class="bp">${m[1]}</p><div class="tg">${m[2].map(t=>`<span>${t}</span>`).join('')}</div>
-  <div class="mr"><button class="gbtn" data-ex="${i}">Explain with Sen-Bot</button><span class="hn"><span class="rot">↻</span></span></div></div>
- </div></article>`}).join('');
-// tap to flip on touch devices (ignore taps on the Explain button)
-if(matchMedia('(hover:none)').matches)$$('.mc').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('button'))return;if(c.classList.contains('auto')){c.classList.remove('auto');return}c.classList.toggle('flip')}));
-// cards flip one by one when the section is on screen, hold, reset, repeat
-{const tr=$('#track'),cs=$$('.mc');let k=0,inView=false,hold=false;
- new IntersectionObserver(es=>{inView=es[0].isIntersecting;if(!inView){cs.forEach(c=>c.classList.remove('auto'));k=0}},{threshold:.35}).observe(tr);
- tr.addEventListener('pointerenter',()=>hold=true);tr.addEventListener('pointerleave',()=>hold=false);
- setInterval(()=>{if(!inView||hold)return;
-  if(k<cs.length){cs[k].classList.add('auto');k++}
-  else if(k>=cs.length+2){cs.forEach(c=>c.classList.remove('auto'));k=0}
-  else k++},1200)}
+  <div class="mr"><button class="gbtn" data-ex="${i}">Explain with Sen-Bot</button><span class="hn">${m[2].join(' · ')}</span></div></article>`}).join('');
+$('#mpills').innerHTML=mods.map((m,i)=>`<button class="mpill" data-go="${i}">${m[0]}</button>`).join('');
 $('#pst').insertAdjacentHTML('beforeend',steps.map((s,i)=>`<div class="st"><small>Stage ${i+1}</small><h3>${s[0]}</h3><div class="sb"><div><p>${s[1]}</p><div class="tg">${s[2].map(t=>`<span>${t}</span>`).join('')}</div></div></div></div>`).join(''));
 $('#sg').innerHTML=groups.map((g,i)=>`<div class="sc rv" style="--dl:${i*.08}s"><h3>${g[0]}</h3><div class="tg">${g[1].map(s=>`<span>${s}</span>`).join('')}</div></div>`).join('');
 
@@ -718,7 +797,7 @@ function talkOn(){av.classList.add('talk');if(!gT){av.dataset.g=gIx%3;gT=setInte
 function talkOff(){av.classList.remove('talk');clearInterval(gT);gT=null}
 
 /* where the bot flies while explaining each section */
-const mcNear=()=>{const c=$$('.mc');let b=c[0],bd=1e9;c.forEach(e=>{const r=e.getBoundingClientRect(),d=Math.abs(r.top+r.height/2-innerHeight/2);if(d<bd){bd=d;b=e}});return b};
+const mcNear=()=>$('#mstack .mcard.act')||$('#mstack .mcard');
 const stNow=()=>$('.st.now')||$('.st');
 const PLAN={
  top:['.hero h1','#dg','.hero .cta','.hero .facts'],
@@ -730,7 +809,7 @@ const PLAN={
  skills:['#skills .hd','#sg .sc:nth-child(2)','#sg .sc:nth-child(4)'],
  edu:['#edu .hd','#edu .edu div:first-child','#edu .edu div:last-child'],
  contact:['#contact .hd','#contact .mail','#cp']};
-let stops=PLAN.top,si=0,roamT=null,override=null,ovT=null,side=1;
+let act=null;let stops=PLAN.top,si=0,roamT=null,override=null,ovT=null,side=1;
 function startRoam(p){stops=p;si=0;clearInterval(roamT);roamT=setInterval(()=>si++,3000)}
 function fly(t,ms){override=t;clearTimeout(ovT);ovT=setTimeout(()=>override=null,ms)}
 function aim(t){
@@ -752,6 +831,7 @@ function pt(r){const vw=innerWidth,vh=innerHeight,x=clamp(r.left+Math.min(r.widt
 function target(){
  const vw=innerWidth,vh=innerHeight,bh=bub.offsetHeight||200,sk=vw<=640?vh-bh-80:vh-70;
  if(!G.classList.contains('show'))return{x:vw+90,y:vh-60,ab:true};
+ if(act&&performance.now()<act.until&&!G.classList.contains('chat')){const e=res(act.el);if(e){const r=e.getBoundingClientRect();if(vis(r)){const p=pt(r);p.y=Math.min(p.y,sk);return p}}}
  if(G.classList.contains('min'))return{x:vw-60,y:vh-60,ab:true};
  const chat=G.classList.contains('chat'),list=override?[override]:((chat||!touring)?[]:stops);
  for(let k=0;k<list.length;k++){const el=res(list[(si+k)%list.length]);
@@ -765,10 +845,10 @@ function frame(t){
  if(reduce){P.x=T.x;P.y=T.y;P.vx=P.vy=0}
  else{const d=Math.pow(.88,dt);P.vx=(P.vx+(T.x-P.x)*.010*dt)*d;P.vy=(P.vy+(T.y-P.y)*.010*dt)*d;P.x+=P.vx*dt;P.y+=P.vy*dt}
  const sp=Math.hypot(P.vx,P.vy);tilt+=(clamp(P.vx*1.5,-16,16)-tilt)*.15;
- const bx=reduce?0:Math.cos(t/640)*4,by=reduce?0:Math.sin(t/400)*6+Math.sin(t/230)*1.5;
+ const bx=reduce?0:Math.cos(t/640)*10,by=reduce?0:Math.sin(t/400)*12+Math.sin(t/230)*2;
  bot.style.transform=`translate3d(${(P.x+bx).toFixed(1)}px,${(P.y+by).toFixed(1)}px,0) rotate(${tilt.toFixed(1)}deg)`;
  bot.classList.toggle('fast',sp>4);bot.style.setProperty('--fl',(1+Math.min(sp*.1,1.3)).toFixed(2));
- if(!reduce&&sp>3&&++tc%3===0&&G.classList.contains('show'))trail(P.x+bx,P.y+by+46);
+ if(!reduce&&++tc%4===0&&G.classList.contains('show'))trail(P.x+bx,P.y+by+46);
  // speech bubble follows the bot
  const chat=G.classList.contains('chat'),bw=bub.offsetWidth,bh=bub.offsetHeight;
  bub.classList.toggle('dock',chat||small);
@@ -799,22 +879,52 @@ function speak(t,force){
    if(my!==sTok){clearInterval(id);return res()}
    gtxt.textContent=t.slice(0,++i);
    if(i>=t.length){clearInterval(id);talkOff();gtxt.classList.remove('typing');res()}
-  },16)})}
+  },30)})}
 function scrollToY(y,ms){const my=++scrollTok,y0=scrollY;
  return new Promise(res=>{const t0=performance.now();
   (function st(n){if(my!==scrollTok)return res();const p=clamp((n-t0)/ms),e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
    scrollTo({top:y0+(y-y0)*e,behavior:'instant'});if(p<1)requestAnimationFrame(st);else res()})(t0)})}
 function stopTour(){if(!touring)return;touring=false;scrollTok++;gtour.textContent='▶ Start tour'}
+
+/* card-by-card narration (brief, slow) */
+const CARDS={
+ about:[['#about .why .sc:nth-child(1)',"Speaks both languages. He understands operations teams and developers, and writes specs both can use."],
+        ['#about .why .sc:nth-child(2)',"Shows before building. He prototypes screens with AI tools so users react early."],
+        ['#about .why .sc:nth-child(3)',"Closes the loop. He tests, reports gaps and follows every change request."]],
+ modules:mods.map((m,i)=>[`#mstack .mcard:nth-child(${i+1})`,m[0]+': '+m[1],'mod',i]),
+ process:steps.map((s,i)=>[()=>$$('.st')[i],s[0]+': '+s[1]]),
+ flow:[['Request','Fields are captured.'],['Validate','Rules are enforced.'],['Approve','The right owner signs off.'],['Dispatch','Status is updated.'],['Close','It is tested and reported.']]
+   .map((f,i)=>[`#flow .fn:nth-child(${i+1})`,'Step '+(i+1)+', '+f[0]+'. '+f[1]]),
+ work:[['#work .wr:nth-child(1)',"Current role: ERP Functional Consultant at Meena Fibre Industry since March 2026, covering requirements, prototypes, UAT and change requests."],
+       ['#work .wr:nth-child(2)',"Before that: Admin Executive on contract at Genius HR Tech, May to September 2024."]],
+ skills:groups.map((g,i)=>[`#sg .sc:nth-child(${i+1})`,g[0]+': '+g[1].join(', ')+'.']),
+ edu:[['#edu .edu div:first-child',"B.Tech in Electrical and Electronics Engineering, 2021 to 2024."],
+      ['#edu .edu div:last-child',"Diploma in Electrical and Electronics Engineering, 2018 to 2021."]]
+};
+async function cards(id){
+ for(const [q,t,flip,mi] of CARDS[id]||[]){
+  if(!touring)break;
+  const e=res(q);if(!e)continue;
+  const r=e.getBoundingClientRect(),isMod=flip==='mod';
+  const y=isMod?modY(mi):Math.max(0,scrollY+r.top+r.height/2-innerHeight*.62);
+  await scrollToY(y,isMod?1700:1100);
+  if(!touring)break;
+  const p=speak(t);override=q;await p;   // bot flies to this card while talking
+  if(!touring)break;
+  await wait(2800);
+ }
+ override=null;
+}
 async function tour(){
  if(touring){stopTour();stopSpeech();return}
  touring=true;G.classList.remove('chat','min');gtour.textContent='■ Stop tour';
  for(const s of secs){
   if(!touring)break;
   const top=s===secs[0]?0:s.getBoundingClientRect().top+scrollY+2;
-  await scrollToY(top,Math.min(2400,700+Math.abs(top-scrollY)*.3));
+  await scrollToY(top,Math.min(3200,1200+Math.abs(top-scrollY)*.4));
   if(!touring)break;cur=s.id;
   await speak(s.dataset.say);
-  if(!touring)break;await wait(2300);
+  if(!touring)break;await wait(2500);await cards(s.id);if(!touring)break;
  }
  if(touring){stopTour();await speak("That's the tour! Ask me anything, or reach out to Senthamil below.");await wait(5000);if(!touring&&!G.classList.contains('chat'))G.classList.add('min')}
 }
@@ -830,16 +940,22 @@ addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()===
 
 /* chat */
 function add(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d}
-function reply(q){const t=q.toLowerCase(),hit=KB.find(k=>k[0].test(t)),d=add('…','b'),
- txt=hit?hit[1]:"I can explain experience, ERP modules, the delivery process, skills, education and contact details. Try a chip below!";
+function answer(q){
+ const t=' '+q.toLowerCase().replace(/[^a-z0-9+&.@\- ]/g,' ').replace(/\s+/g,' ')+' ';
+ const sc=KB.map((k,i)=>({k,i,s:k.p.reduce((a,r)=>a+(r.test(t)?1:0),0)})).filter(x=>x.s>0);
+ if(!sc.length)return{txt:"Good question. Here is what I know for sure: "+SUM+" For anything more specific, "+CT.charAt(0).toLowerCase()+CT.slice(1),sec:null,fu:DEF};
+ sc.sort((a,b)=>b.s-a.s||a.i-b.i);
+ const out=[sc[0]];if(sc[1]&&sc[1].s===sc[0].s&&sc[0].s>=2)out.push(sc[1]);
+ return{txt:out.map(x=>typeof x.k.a==='function'?x.k.a(t):x.k.a).join(' '),sec:out[0].k.s,fu:out[0].k.fu||DEF}}
+function setChips(a){$('#chips').innerHTML=a.map(c=>`<button type="button">${c}</button>`).join('');$$('#chips button').forEach(b=>b.onclick=()=>ask(b.textContent))}
+function reply(q){const r=answer(q),d=add('…','b');
  setTimeout(()=>{let i=0;talkOn();
-  const id=setInterval(()=>{d.textContent=txt.slice(0,++i);msgs.scrollTop=msgs.scrollHeight;if(i>=txt.length){clearInterval(id);talkOff()}},reduce?1:14);
-  if(hit&&hit[2])setTimeout(()=>{document.querySelector(hit[2]).scrollIntoView({behavior:'smooth'})},900)},500)}
+  const id=setInterval(()=>{d.textContent=r.txt.slice(0,++i);msgs.scrollTop=msgs.scrollHeight;if(i>=r.txt.length){clearInterval(id);talkOff();setChips(r.fu)}},reduce?1:12);
+  if(r.sec)setTimeout(()=>{const e=document.querySelector(r.sec);if(e)e.scrollIntoView({behavior:'smooth'})},900)},500)}
 function ask(q){if(!q.trim())return;add(q,'u');reply(q)}
-$('#chips').innerHTML=['Experience','ERP modules','Process','Skills','Education','Contact'].map(c=>`<button type="button">${c}</button>`).join('');
-$$('#chips button').forEach(b=>b.onclick=()=>ask(b.textContent));
 $('#f').onsubmit=e=>{e.preventDefault();const i=$('#q');ask(i.value);i.value=''};
-add("Hi! I'm Sen-Bot. Ask me anything about Senthamil's ERP work.",'b');
+add("Hi! I'm Sen-Bot. Ask me anything about Senthamil: experience, ERP modules, skills, availability, contact and more.",'b');
+setChips(DEF);
 
 /* ================= INTERACTIONS ================= */
 // reveal + counters
@@ -886,6 +1002,39 @@ function ready(){$('#pre').classList.add('done');document.body.classList.add('re
  $$('.hero .hd,.hero .rv').forEach(e=>e.classList.add('in'));type();
  setTimeout(()=>G.classList.add('show','min'),900)}
 
+/* ================= MODULES: scroll-driven stack + bot actions ================= */
+const msc=$('#mscroll'),mcards=$$('.mcard'),mpills=$$('.mpill'),mfill=$('#mfill'),mghost=$('#mghost'),btag=$('#btag'),minfo=$('#minfo');
+let mAct=-1;
+function modY(i){const top=msc.getBoundingClientRect().top+scrollY,H=msc.offsetHeight-innerHeight;return top+H*((i+.5)/mods.length)}
+function burst(el){if(reduce||!el)return;const r=el.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+ const cx=r.left+r.width*.8,cy=r.top+r.height*.25,cols=['#FF5A1F','#3B5BFF','#FFC400','#ffffff'];
+ for(let k=0;k<16;k++){const d=document.createElement('i');d.className='spk';const a=k/16*Math.PI*2,s=50+Math.random()*70;
+  d.style.cssText=`left:${cx}px;top:${cy}px;--dx:${(Math.cos(a)*s).toFixed(0)}px;--dy:${(Math.sin(a)*s).toFixed(0)}px;background:${cols[k%4]}`;G.appendChild(d);setTimeout(()=>d.remove(),950)}}
+function fillInfo(i){const m=mods[i];
+ mcards.forEach((c,k)=>c.classList.toggle('act',k===i));mpills.forEach((p,k)=>p.classList.toggle('on',k===i));
+ $('#mcount').textContent=i+1;$('#mnum').textContent=String(i+1).padStart(2,'0');$('#mname').textContent=m[0];$('#mdesc').textContent=m[1];
+ $('#mtags').innerHTML=m[2].map(t=>`<span>${t}</span>`).join('');
+ minfo.classList.remove('sw');void minfo.offsetWidth;minfo.classList.add('sw')}
+function modAct(i){
+ burst(mcards[i]);
+ if(touring||!G.classList.contains('show')||G.classList.contains('chat'))return;
+ act={el:`#mstack .mcard:nth-child(${i+1})`,until:performance.now()+3400};
+ btag.textContent=mods[i][0]+' module';bot.classList.add('stunt','tagon');
+ clearTimeout(modAct.a);modAct.a=setTimeout(()=>bot.classList.remove('stunt'),1000);
+ clearTimeout(modAct.b);modAct.b=setTimeout(()=>bot.classList.remove('tagon'),3400);
+ av.dataset.g=2;av.classList.add('talk');clearTimeout(modAct.c);modAct.c=setTimeout(()=>{if(!gT)av.classList.remove('talk')},1800)}
+function updMods(vh){
+ const r=msc.getBoundingClientRect();if(r.bottom<-50||r.top>vh+50)return;
+ const H=r.height-vh,p=clamp(-r.top/H),n=mods.length,pp=p*n-.5;
+ mfill.style.transform=`scaleX(${p.toFixed(3)})`;mghost.style.transform=`translateX(${(-p*18).toFixed(1)}vw)`;
+ mcards.forEach((c,i)=>{const d=i-pp;let tr,op,z;
+  if(d>=0){const q=Math.min(d,4);tr=`translate3d(${q*38}px,${q*30}px,0) scale(${1-q*.07}) rotate(${q*1.2}deg)`;op=clamp(1-q*.22);z=100-Math.round(d*10)}
+  else{const q=Math.max(d,-2);tr=`translate3d(${q*-40}px,${q*150}px,0) scale(${1+q*.03}) rotate(${q*5}deg)`;op=clamp(1+q*1.3);z=120}
+  c.style.transform=tr;c.style.opacity=op.toFixed(2);c.style.zIndex=z;c.style.pointerEvents=Math.abs(d)<.5?'auto':'none'});
+ const i=clamp(Math.round(pp),0,n-1);if(i!==mAct){mAct=i;fillInfo(i);modAct(i)}}
+mpills.forEach(b=>b.onclick=()=>{stopTour();scrollTo({top:modY(+b.dataset.go),behavior:'smooth'})});
+fillInfo(0);mAct=-1;
+
 /* ================= MASTER LOOP ================= */
 const nav=$('#nav'),bar=$('#bar'),hin=$('#hin'),bands=$$('.band div'),ghost=$('#ghost'),about=$('#about'),
  pst=$('#pst'),pfill=$('#pfill'),STS=$$('.st'),eyes=$('#eyes');
@@ -913,6 +1062,7 @@ function loop(t){
  const pr=pst.getBoundingClientRect();
  if(pr.top<vh&&pr.bottom>0){pfill.style.transform=`scaleY(${clamp((vh*.6-pr.top)/pr.height)})`;let last=-1;
   STS.forEach((s,i)=>{const b=s.getBoundingClientRect(),on=b.top+b.height*.4<=vh*.6;s.classList.toggle('on',on);if(on)last=i});STS.forEach((s,i)=>s.classList.toggle('now',i===last))}
+ updMods(vh);
  // bot eyes follow cursor
  if(f%2===0){const r=av.getBoundingClientRect(),dx=M.x-(r.left+36),dyy=M.y-(r.top+24),d=Math.hypot(dx,dyy)||1,k=Math.min(2.6,d/60);eyes.style.transform=`translate(${(dx/d*k).toFixed(2)}px,${(dyy/d*k).toFixed(2)}px)`}
  ly=y;requestAnimationFrame(loop)}
